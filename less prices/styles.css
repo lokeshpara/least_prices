@@ -31,11 +31,14 @@ h2 {
 #product-name {
   font-weight: 500;
   margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 #amazon-price {
   color: #B12704;
   font-weight: 600;
+  font-size: 16px;
 }
 
 .comparison-item {
@@ -44,18 +47,36 @@ h2 {
   align-items: center;
   padding: 12px;
   border-bottom: 1px solid #eee;
+  gap: 12px;
 }
 
 .comparison-item:last-child {
   border-bottom: none;
 }
 
+.store-info {
+  flex: 1;
+  min-width: 0;
+}
+
 .store-name {
   font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.savings {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.price-info {
+  text-align: right;
+  white-space: nowrap;
 }
 
 .price {
   font-weight: 600;
+  margin-bottom: 4px;
 }
 
 .better-price {
@@ -88,8 +109,28 @@ h2 {
 .visit-link {
   color: #0066c0;
   text-decoration: none;
+  font-size: 12px;
+  padding: 4px 8px;
+  border: 1px solid #0066c0;
+  border-radius: 4px;
+  display: inline-block;
 }
 
 .visit-link:hover {
-  text-decoration: underline;
+  background: #f0f7ff;
+  text-decoration: none;
+}
+
+#error {
+  color: #B12704;
+  padding: 12px;
+  background: #fff4f4;
+  border-radius: 4px;
+  margin-top: 16px;
+}
+
+#loading p {
+  text-align: center;
+  color: #666;
+  margin-top: 8px;
 } 

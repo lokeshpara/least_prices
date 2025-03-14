@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (response) {
         // Display product information
         document.getElementById('product-name').textContent = response.title;
-        document.getElementById('amazon-price').textContent = response.price;
+        document.getElementById('amazon-price').textContent = `Amazon Price: ${response.price}`;
 
         // Search for prices on other websites
         chrome.runtime.sendMessage(
@@ -47,20 +47,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             if (searchResponse && searchResponse.success) {
               results.classList.remove('hidden');
+              comparisonList.innerHTML = ''; // Clear existing results
               
               // Display comparison results
               searchResponse.results.forEach(result => {
                 const item = document.createElement('div');
                 item.className = 'comparison-item';
                 
-                const priceComparison = comparePrices(response.price, result.price);
-                const priceClass = priceComparison < 0 ? 'better-price' : 
-                                 priceComparison > 0 ? 'worse-price' : '';
+                const priceClass = result.isLower ? 'better-price' : 'worse-price';
+                const savingsText = result.isLower ? 
+                  `Save $${result.priceDiff}` : 
+                  `Costs $${Math.abs(result.priceDiff)} more`;
                 
                 item.innerHTML = `
-                  <div class="store-name">${result.store}</div>
-                  <div class="price ${priceClass}">${result.price}</div>
-                  <a href="${result.url}" target="_blank" class="visit-link">Visit</a>
+                  <div class="store-info">
+                    <div class="store-name">${result.store}</div>
+                    ${!result.error ? `<div class="savings ${priceClass}">${savingsText}</div>` : ''}
+                  </div>
+                  <div class="price-info">
+                    <div class="price ${priceClass}">${result.price}</div>
+                    <a href="${result.url}" target="_blank" class="visit-link">Visit Store</a>
+                  </div>
                 `;
                 
                 comparisonList.appendChild(item);
